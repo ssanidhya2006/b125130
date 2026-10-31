@@ -1,0 +1,49 @@
+#include <iostream>
+using namespace std;
+
+class Recommender
+{
+public:
+    virtual void generateRecommendation(int userRating, int popularity)
+    {
+        cout << "Generating Recommendation" << endl;
+    }
+};
+
+class PersonalizedRecommender : public Recommender
+{
+public:
+    void generateRecommendation(int userRating, int popularity)
+    {
+        double score = 0.7 * userRating + 0.3 * popularity;
+
+        cout << "Personalized Recommendation Score: " << score << endl;
+    }
+};
+
+class TrendingRecommender : public Recommender
+{
+public:
+    void generateRecommendation(int userRating, int popularity)
+    {
+        double score = 0.3 * userRating + 0.7 * popularity;
+
+        cout << "Trending Recommendation Score: " << score << endl;
+    }
+};
+
+int main()
+{
+    PersonalizedRecommender p;
+    TrendingRecommender t;
+
+    Recommender *ptr;
+
+    ptr = &p;
+    ptr->generateRecommendation(80, 90);
+
+    ptr = &t;
+    ptr->generateRecommendation(80, 90);
+
+    return 0;
+}
